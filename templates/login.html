@@ -21,7 +21,7 @@
         {% endwith %}
     
         <h1>Faça seu login</h1>
-        <form method="post" action="{{ url_for('autenticar') }}">
+        <form method="post" action="/autenticar">
             <input type="hidden" name = proxima value="{{ proxima }}">
             <p><label>Nome do usuário:</label><input class="form-control" type="text" name="usuário" required></p>
             <p><label>Senha:</label><input class="form-control" type="password" name="Senha" required></p>
