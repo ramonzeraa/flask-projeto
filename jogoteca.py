@@ -19,11 +19,13 @@ lista = [jogo1,jogo2,jogo3,jogo4]
 def index():
     return render_template('lista.html', titulo = 'Jogos', jogos = lista) #indica O PARAMETRO criado no html por boas praticas
 
+
 @app.route('/novo')
 def novo():
     if 'usuario_logado' not in session or session ['usuario_logado'] == None:
-        return redirect('/login')
+        return redirect('/login?proxima=novo')#query string
     return render_template('novo.html', titulo = 'Novo Jogo')
+
 
 @app.route('/criar' , methods = ['POST',])
 def criar():
@@ -34,9 +36,12 @@ def criar():
     lista.append(jogo)
     return redirect('/')
 
+
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    proxima = request.args.get('proxima')
+    return render_template('login.html' , proxima = proxima)
+
 
 
 @app.route('/autenticar' , methods = ['POST',])
@@ -44,10 +49,12 @@ def autenticar():
     if 'teste' == request.form['Senha']:
         session['usuario_logado'] = request.form['usuário']
         flash(session['usuario_logado'] + ' logado com sucesso')
-        return redirect('/')
+        proxima_pagina = request.form['proxima']
+        return redirect(f'/{proxima_pagina}')
     else:
         flash('Usuário não logado')
         return redirect('/login')
+
 
 @app.route('/logout')
 def logout():
