@@ -6,7 +6,7 @@ print("Testando conexão...")
 
 try:
     conexao = mysql.connector.connect(
-        host = 'localhost',
+        host = '127.0.0.1',
         user = 'root',
         password = '7532draivp',
     )
@@ -18,15 +18,15 @@ except mysql.connector.Error as err:
         
 cursor = conexao.cursor()
 
-cursor.execute("DROP DATABASE IF EXISTS Jogoteca;")
+# cursor.execute("DROP DATABASE IF EXISTS jogoteca;")
 
-cursor.execute("CREATE DATABASE Jogoteca;")
+# cursor.execute("CREATE DATABASE jogoteca;")
 
-cursor.execute("USE Jogoteca;")
+cursor.execute("USE jogoteca;")
 
 TABLES = {}
-TABLES['Jogos'] = ('''
-     CREATE TABLE Jogos (
+TABLES['jogos'] = ('''
+     CREATE TABLE jogos (
          id int(11) not null auto_increment,
          nome varchar(50) not null,
          categoria varchar(40) not null,
@@ -34,8 +34,8 @@ TABLES['Jogos'] = ('''
          PRIMARY KEY (id)
      )''')
 
-TABLES['Usuarios'] = ('''
-      CREATE TABLE  Usuarios (
+TABLES['usuarios'] = ('''
+      CREATE TABLE  usuarios (
           nome varchar(20) not null,
           nickname varchar(20) not null,
           senha varchar(100) not null,
@@ -56,7 +56,7 @@ for tabela_nome in TABLES:
         print('OK')
         
 #inserindo usuários
-usuario_sql = 'INSERT INTO Usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
+usuario_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
 Usuarios = [
     ("Ramon Candido" , "Ramones" , "7532draivp"),
     ("Murilo huff" , "Murinelas" , "1234567"),
@@ -70,7 +70,7 @@ for user in cursor.fetchall():
     print(user[1])
     
 #inserindo jogos
-jogos_sql = 'INSERT INTO Jogos (nome, categoria, console) VALUES (%s , %s, %s)'
+jogos_sql = 'INSERT INTO jogos (nome, categoria, console) VALUES (%s , %s, %s)'
 jogos = [
     ('Tetris', 'Puzzle', 'Atari'),
     ('Lol', 'MMO','PC'),
