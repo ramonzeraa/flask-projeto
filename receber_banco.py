@@ -42,22 +42,16 @@ TABLES['Usuarios'] = ('''
           PRIMARY KEY (nickname)
           )''')
 
-
-
-
-
-
-
-
-
-
-# for tabela_nome in TABLES:
-#     tabela_sql = TABLES[tabela_nome]
-#     try:
-#         print(f'Criando tabela {tabela_nome}' , end = '')
-#         cursor.execute(tabela_sql)
-#     except mysql.connector.Error as err:
-#         if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-#             print('Já existe')
-#         else:
-#             print(err)
+for tabela_nome in TABLES:
+    tabela_sql = TABLES[tabela_nome]
+    try:
+        print(f'Criando tabela {tabela_nome}' , end = '')
+        cursor.execute(tabela_sql)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+            print('Já existe')
+        else:
+            print(err)
+    else:
+        print('OK')
+        
