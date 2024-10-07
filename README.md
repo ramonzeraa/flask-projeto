@@ -17,7 +17,7 @@ A **Jogoteca** é um sistema desenvolvido em Python para o gerenciamento de jogo
 ## **Tecnologias Utilizadas**
 - **Linguagem:** Python 3.x
 - **Bibliotecas:** 
-  - Flask (ou outra, dependendo do framework utilizado)
+  - Flask 
   - SQLite (ou MySQL, dependendo do banco de dados)
 
 ## **Como Executar o Projeto**

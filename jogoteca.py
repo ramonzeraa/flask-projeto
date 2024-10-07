@@ -8,7 +8,7 @@ class Jogo:
         self.nome = nome
         self.categoria = categoria
         self.console = console
-        
+       
 jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
 jogo2 = Jogo('Lol', 'MMO','PC') 
 jogo3 = Jogo('Valorant','Tiro','PC')
