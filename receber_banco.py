@@ -24,4 +24,16 @@ cursor.execute("CREATE DATABASE Jogoteca;")
 
 cursor.execute("USE Jogoteca;")
 
+TABLES = {}
+TABLES['Jogos'] = ('''
+     CREATE TABLE jogos (
+         id int(11) not null auto_increment,
+         nome varchar(50) not null,
+         categoria varchar(40) not null,
+         console varchar(20) not null,
+         PRIMARY KEY (id)
+     )''')
+
+
+
         
