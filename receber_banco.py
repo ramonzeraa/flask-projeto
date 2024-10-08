@@ -6,16 +6,20 @@ print("Testando conexão...")
 
 try:
     conexao = mysql.connector.connect(
-        host = '127.0.0.1',
+        host = 'localhost',
         user = 'root',
         password = '7532draivp',
+        database = 'jogoteca'
     )
+    print("conexão bem-sucedida")
+    
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
         print("Erro no usuario ou senha")
+    elif err.errno == errorcode.ER_BAD_DB_ERROR:
+        print('Banco de dados nao existe')
     else:
-        print('conexão bem sucedida')
-        
+        print(err)
 cursor = conexao.cursor()
 
 # cursor.execute("DROP DATABASE IF EXISTS jogoteca;")
@@ -63,6 +67,7 @@ Usuarios = [
     ("Leticia neves" , "Leticines" ,"abcdef")
 ]        
 cursor.executemany(usuario_sql,Usuarios)
+
 
 cursor.execute('select * from Usuarios')
 print('------------ Usuários: ---------------')

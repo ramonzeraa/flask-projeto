@@ -5,9 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = 'fuK1duQhhi1Q4a0'
 
-    
-    
-    
 class Jogo:
     def __init__(self,nome,categoria,console) -> None:
         self.nome = nome
