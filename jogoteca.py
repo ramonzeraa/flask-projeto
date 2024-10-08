@@ -1,41 +1,38 @@
 from flask import Flask, render_template, request, redirect , session, flash
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 app.secret_key = 'fuK1duQhhi1Q4a0'
 
+    
+    
+    
+class Jogo:
+    def __init__(self,nome,categoria,console) -> None:
+        self.nome = nome
+        self.categoria = categoria
+        self.console = console
+       
+jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
+jogo2 = Jogo('Lol', 'MMO','PC') 
+jogo3 = Jogo('Valorant','Tiro','PC')
+jogo4 = Jogo('Doom','RPG',  'PC')
+lista = [jogo1,jogo2,jogo3,jogo4]
 
-app.config('SQLALCHEMY_DATABASE_URI') = \
-    '{SGBD} : //{usuario}:{senha}@{servidor}/{database}'.format(
-        SGBD = 'mysql+mysqlconnector',
-        usuario = 'root',
-        senha = '7532draivp',
-        servidor = 'localhost',
-        database = 'jogoteca'
-    )
-    
-db = SQLAlchemy(app)
+class Usuario:
+    def __init__(self, nome, nickname, senha):
+        self.nome = nome
+        self.nickname = nickname
+        self.senha = senha
+        
+usuario1 = Usuario("Ramon Candido" , "Ramones" , "7532draivp")
+usuario2 = Usuario("Murilo huff" , "Murinelas" , "1234567")
+usuario3 = Usuario("Leticia neves" , "Leticines" ,"abcdef")
 
-class Jogos(db.nmodel):
-    id = db.Column(db.Integer, primary_key = True, auto_increment=True)
-    nome = db.Column(db.String(50), nullable=False)
-    categoria = db.Column(db.String(35), nullable=False)
-    console = db.Column(db.String(20), nullable=False)
-    
-    def __repr__(self):
-        return '<Name %r' % self.name
-    
-class Jogos(db.nmodel):
-    nickname = db.Column(db.String(8), primary_key = True, auto_increment=True)
-    nome = db.Column(db.String(20), nullable=False)
-    senha = db.Column(db.String(100), nullable=False)
-    
-    def __repr__(self):
-        return '<Name %r' % self.name
-    
-    
-    
-
+usuarios = { usuario1.nickname : usuario1,
+            usuario2.nickname : usuario2, 
+            usuario3.nickname : usuario3 }
 
 @app.route('/')
 def index():
