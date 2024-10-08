@@ -64,7 +64,7 @@ for tabela_nome in TABLES:
             print(err)
     else:
         print('OK')
-        
+#CREATE     
 #inserindo usuários
 usuarios_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
 usuarios = [
@@ -78,12 +78,13 @@ cursor.executemany(usuarios_sql,usuarios)
 conexao.commit()
 print("usuarios inseridos com sucesso")
 
-
+#READ
 cursor.execute('select * from usuarios')
 print('------------ Usuários: ---------------')
 for user in cursor.fetchall():
     print(user[1])
-    
+
+#CREATE     
 #inserindo jogos
 jogos_sql = 'INSERT INTO jogos (nome, categoria, console) VALUES (%s , %s, %s)'
 jogos = [
@@ -99,7 +100,34 @@ cursor.executemany(jogos_sql , jogos)
 #confirmando inserção dos dados no banco de dados
 conexao.commit()
 
+#READ
 cursor.execute('select * from jogos')
 print('------------ Jogos: ---------------')
 for jogo in cursor.fetchall():
     print(jogo[1])
+    
+
+#UPDATE DO NOME
+nome = ""
+id_prod = 1
+jogos_sql = 'UPDATE jogos SET nome = %s WHERE id = %s'
+cursor.execute(jogos_sql, (nome, id_prod))
+conexao.commit()
+
+#UPDATE DA CATEGORIA
+categoria = ""
+id_prod = 1
+jogos_sql = 'UPDATE jogos SET categoria = %s WHERE id = %s'
+cursor.execute(jogos_sql, (nome, id_prod))
+conexao.commit()
+
+#UPDATE DO CONSOLE
+console = ""
+id_prod = 1
+jogos_sql = 'UPDATE jogos SET console = %s WHERE id = %s'
+cursor.execute(jogos_sql, (nome, id_prod))
+conexao.commit()
+
+
+cursor.close()
+conexao.close()
