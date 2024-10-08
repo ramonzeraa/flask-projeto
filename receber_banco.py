@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
+from flask import session, request, redirect
 
 
 print("Testando conexão...")
@@ -21,13 +22,30 @@ except mysql.connector.Error as err:
     else:
         print(err)
         
+        
+cursor = conexao.cursor()
 def carregar_jogos_do_banco(usuario_id):
-    cursor = conexao.cursor(dictionary=True)
     cursor.execute("SELECT nome, categoria, console FROM jogos WHERE usuario_id = %s", (usuario_id,))
     jogos = cursor.fetchall()
     cursor.close()
     conexao.close()
     return jogos
+
+
+
+def home():
+    # Verifica se o usuário está logado e tem sessão
+    if 'usuario_id' in session:
+        usuario_id = session['usuario_id']
+        if 'jogos' not in session:
+            # Carrega jogos do banco de dados apenas uma vez, ao iniciar a sessão
+            session['jogos'] = carregar_jogos_do_banco(usuario_id)
+        jogos = session['jogos']
+        return f"Lista de jogos do usuário: {jogos}"
+    else:
+        return "Usuário não logado."
+
+
 
 TABLES = {}
 TABLES['jogos'] = ('''
