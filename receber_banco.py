@@ -23,60 +23,62 @@ except mysql.connector.Error as err:
         
 cursor = conexao.cursor()
 
-cursor.execute("DROP DATABASE IF EXISTS Jogoteca")
+# cursor.execute("DROP DATABASE IF EXISTS Jogoteca")
 
-cursor.execute("CREATE DATABASE Jogoteca")
+# cursor.execute("CREATE DATABASE Jogoteca")
 
-cursor.execute("Use Jogoteca")
-
-
-
-TABLES = {}
-TABLES['usuarios'] = ('''
-      CREATE TABLE  usuarios (
-          nome varchar(20) not null,
-          nickname varchar(20) not null,
-          senha varchar(100) not null,
-          PRIMARY KEY (nickname)
-          )''')
+# cursor.execute("Use Jogoteca")
 
 
-TABLES['jogos'] = ('''
-     CREATE TABLE jogos (
-         id int(11) not null auto_increment,
-         nome varchar(50) not null,
-         categoria varchar(40) not null,
-         console varchar(20) not null,
-         PRIMARY KEY (id)
-     )''')
+
+# TABLES = {}
+# TABLES['usuarios'] = ('''
+#       CREATE TABLE  usuarios (
+#           nome varchar(20) not null,
+#           nickname varchar(20) not null,
+#           senha varchar(100) not null,
+#           PRIMARY KEY (nickname)
+#           )''')
 
 
-for tabela_nome in TABLES:
-    tabela_sql = TABLES[tabela_nome]
-    try:
-        print(f'Criando tabela {tabela_nome}...:' , end = '')
-        cursor.execute(tabela_sql)
-        print('OK')
-    except mysql.connector.Error as err:
-        if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-            print('Já existe')
-        else:
-            print(err)
-    else:
-        print('OK')
+# TABLES['jogos'] = ('''
+#      CREATE TABLE jogos (
+#          id int(11) not null auto_increment,
+#          nome varchar(50) not null,
+#          categoria varchar(40) not null,
+#          console varchar(20) not null,
+#          PRIMARY KEY (id)
+#      )''')
+
+
+# for tabela_nome in TABLES:
+#     tabela_sql = TABLES[tabela_nome]
+#     try:
+#         print(f'Criando tabela {tabela_nome}...:' , end = '')
+#         cursor.execute(tabela_sql)
+#         print('OK')
+#     except mysql.connector.Error as err:
+#         if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+#             print('Já existe')
+#         else:
+#             print(err)
+#     else:
+#         print('OK')
+
+
 #CREATE     
 #inserindo usuários
-usuarios_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
-usuarios = [
-    ("Ramon Candido" , "Ramones" , "7532draivp"),
-    ("Murilo huff" , "Murinelas" , "1234567"),
-    ("Leticia neves" , "Leticines" ,"abcdef")
-]        
+# usuarios_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
+# usuarios = [
+#     ("Ramon Candido" , "Ramones" , "7532draivp"),
+#     ("Murilo huff" , "Murinelas" , "1234567"),
+#     ("Leticia neves" , "Leticines" ,"abcdef")
+# ]        
 #usando executemany para executar varios parametros de uma vez só
-cursor.executemany(usuarios_sql,usuarios)
+# cursor.executemany(usuarios_sql,usuarios)
 #confirmando inserção dos dados no banco de dados
-conexao.commit()
-print("usuarios inseridos com sucesso")
+# conexao.commit()
+# print("usuarios inseridos com sucesso")
 
 #READ
 cursor.execute('select * from usuarios')
@@ -86,17 +88,17 @@ for user in cursor.fetchall():
 
 #CREATE     
 #inserindo jogos
-jogos_sql = 'INSERT INTO jogos (nome, categoria, console) VALUES (%s , %s, %s)'
-jogos = [
-    ('Tetris', 'Puzzle', 'Atari'),
-    ('Lol', 'MMO','PC'),
-    ('Valorant','Tiro','PC'),
-    ('Doom','RPG',  'PC'),
-    ('GTA V' , 'Tiro' , 'PC')
-]
+# jogos_sql = 'INSERT INTO jogos (nome, categoria, console) VALUES (%s , %s, %s)'
+# jogos = [
+#     ('Tetris', 'Puzzle', 'Atari'),
+#     ('Lol', 'MMO','PC'),
+#     ('Valorant','Tiro','PC'),
+#     ('Doom','RPG',  'PC'),
+#     ('GTA V' , 'Tiro' , 'PC')
+# ]
 
 #usando executemany para executar varios parametros de uma vez só
-cursor.executemany(jogos_sql , jogos)
+# cursor.executemany(jogos_sql , jogos)
 #confirmando inserção dos dados no banco de dados
 conexao.commit()
 
@@ -107,26 +109,28 @@ for jogo in cursor.fetchall():
     print(jogo[1])
     
 
-#UPDATE DO NOME
-nome = ""
-id_prod = 1
-jogos_sql = 'UPDATE jogos SET nome = %s WHERE id = %s'
-cursor.execute(jogos_sql, (nome, id_prod))
-conexao.commit()
+# #UPDATE DO NOME
+# nome = "Gun mayhem"
+# id_prod = 1
+# jogos_sql = 'UPDATE jogos SET nome = %s WHERE id = %s'
+# cursor.execute(jogos_sql, (nome, id_prod))
+# conexao.commit()
 
 #UPDATE DA CATEGORIA
-categoria = ""
-id_prod = 1
-jogos_sql = 'UPDATE jogos SET categoria = %s WHERE id = %s'
-cursor.execute(jogos_sql, (nome, id_prod))
-conexao.commit()
+# categoria = "Tiro"
+# id_prod = 1
+# jogos_sql = 'UPDATE jogos SET categoria = %s WHERE id = %s'
+# cursor.execute(jogos_sql, (categoria, id_prod))
+# conexao.commit()
 
 #UPDATE DO CONSOLE
-console = ""
+console = "PC"
 id_prod = 1
 jogos_sql = 'UPDATE jogos SET console = %s WHERE id = %s'
-cursor.execute(jogos_sql, (nome, id_prod))
+cursor.execute(jogos_sql, (console, id_prod))
 conexao.commit()
+
+
 
 
 cursor.close()
