@@ -124,11 +124,26 @@ for jogo in cursor.fetchall():
 # conexao.commit()
 
 #UPDATE DO CONSOLE
-console = "PC"
-id_prod = 1
-jogos_sql = 'UPDATE jogos SET console = %s WHERE id = %s'
-cursor.execute(jogos_sql, (console, id_prod))
-conexao.commit()
+# console = "PC"
+# id_prod = 1
+# jogos_sql = 'UPDATE jogos SET console = %s WHERE id = %s'
+# cursor.execute(jogos_sql, (console, id_prod))
+# conexao.commit()
+
+
+#UPDATE DO nickname
+# nickname = "Ramods"
+# nome_usuario = 'Ramon Candido'
+# jogos_sql = 'UPDATE usuarios SET nickname = %s WHERE nome = %s'
+# cursor.execute(jogos_sql, (nickname, nome_usuario))
+# conexao.commit()
+
+#UPDATE DA SENHA
+# senha = "9521"
+# nome_usuario = 'Ramon Candido'
+# jogos_sql = 'UPDATE usuarios SET senha = %s WHERE nome = %s'
+# cursor.execute(jogos_sql, (senha, nome_usuario))
+# conexao.commit()
 
 
 
