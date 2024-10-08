@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
-
+from flask_sqlalchemy import SQLAlchemy
 
 print("Testando conexão...")
 
@@ -64,13 +64,13 @@ for tabela_nome in TABLES:
         print('OK')
         
 #inserindo usuários
-usuario_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
+usuarios_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
 usuarios = [
     ("Ramon Candido" , "Ramones" , "7532draivp"),
     ("Murilo huff" , "Murinelas" , "1234567"),
     ("Leticia neves" , "Leticines" ,"abcdef")
 ]        
-cursor.executemany(usuario_sql,usuarios)
+cursor.executemany(usuarios_sql,usuarios)
 
 
 cursor.execute('select * from usuarios')
@@ -84,12 +84,13 @@ jogos = [
     ('Tetris', 'Puzzle', 'Atari'),
     ('Lol', 'MMO','PC'),
     ('Valorant','Tiro','PC'),
-    ('Doom','RPG',  'PC')
+    ('Doom','RPG',  'PC'),
+    ('GTA V' , 'Tiro' , 'PC')
 ]
 
 cursor.executemany(jogos_sql , jogos)
 
-cursor.execute('select * from Jogos')
+cursor.execute('select * from jogos')
 print('------------ Jogos: ---------------')
 for jogo in cursor.fetchall():
     print(jogo[1])
