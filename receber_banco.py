@@ -1,13 +1,12 @@
 import mysql.connector
 from mysql.connector import errorcode
-from flask import session, request, redirect
 
 
 print("Testando conexão...")
 
 try:
     conexao = mysql.connector.connect(
-        host = 'localhost',
+        host = '127.0.0.1',
         user = 'root',
         password = '7532draivp',
         database = 'Jogoteca'
@@ -22,28 +21,13 @@ except mysql.connector.Error as err:
     else:
         print(err)
         
-        
 cursor = conexao.cursor()
-def carregar_jogos_do_banco(usuario_id):
-    cursor.execute("SELECT nome, categoria, console FROM jogos WHERE usuario_id = %s", (usuario_id,))
-    jogos = cursor.fetchall()
-    cursor.close()
-    conexao.close()
-    return jogos
 
+cursor.execute("DROP DATABASE IF EXISTS Jogoteca")
 
+cursor.execute("CREATE DATABASE Jogoteca")
 
-def home():
-    # Verifica se o usuário está logado e tem sessão
-    if 'usuario_id' in session:
-        usuario_id = session['usuario_id']
-        if 'jogos' not in session:
-            # Carrega jogos do banco de dados apenas uma vez, ao iniciar a sessão
-            session['jogos'] = carregar_jogos_do_banco(usuario_id)
-        jogos = session['jogos']
-        return f"Lista de jogos do usuário: {jogos}"
-    else:
-        return "Usuário não logado."
+cursor.execute("Use Jogoteca")
 
 
 
@@ -68,7 +52,7 @@ TABLES['usuarios'] = ('''
 for tabela_nome in TABLES:
     tabela_sql = TABLES[tabela_nome]
     try:
-        print(f'Criando tabela {tabela_nome}...: ' , end = '')
+        print(f'Criando tabela {tabela_nome}...:' , end = '')
         cursor.execute(tabela_sql)
         print('OK')
     except mysql.connector.Error as err:
@@ -81,15 +65,15 @@ for tabela_nome in TABLES:
         
 #inserindo usuários
 usuario_sql = 'INSERT INTO usuarios (nome,nickname,senha) VALUES (%s, %s, %s)'
-Usuarios = [
+usuarios = [
     ("Ramon Candido" , "Ramones" , "7532draivp"),
     ("Murilo huff" , "Murinelas" , "1234567"),
     ("Leticia neves" , "Leticines" ,"abcdef")
 ]        
-cursor.executemany(usuario_sql,Usuarios)
+cursor.executemany(usuario_sql,usuarios)
 
 
-cursor.execute('select * from Usuarios')
+cursor.execute('select * from usuarios')
 print('------------ Usuários: ---------------')
 for user in cursor.fetchall():
     print(user[1])
