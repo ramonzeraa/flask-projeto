@@ -5,6 +5,21 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = 'fuK1duQhhi1Q4a0'
 
+# Lista original (dados permanentes)
+lista_original = [
+    {'nome': 'Tetris', 'categoria': 'Puzzle', 'console': 'Atari'},
+    {'nome': 'Valorant', 'categoria': 'Tiro', 'console': 'PC'}
+]
+
+# Lista temporária para armazenar os jogos da sessão
+@app.route('/')
+def index():
+    if 'lista_temp' not in session:
+        # Se não houver uma lista na sessão, use a lista original
+        session['lista_temp'] = lista_original.copy()
+    return str(session['lista_temp'])  # Para visualização simples
+
+
 class Jogo:
     def __init__(self,nome,categoria,console) -> None:
         self.nome = nome

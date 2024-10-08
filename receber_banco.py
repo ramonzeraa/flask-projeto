@@ -9,7 +9,7 @@ try:
         host = 'localhost',
         user = 'root',
         password = '7532draivp',
-        database = 'jogoteca'
+        database = 'Jogoteca'
     )
     print("conexão bem-sucedida")
     
@@ -20,13 +20,9 @@ except mysql.connector.Error as err:
         print('Banco de dados nao existe')
     else:
         print(err)
+        
 cursor = conexao.cursor()
 
-# cursor.execute("DROP DATABASE IF EXISTS jogoteca;")
-
-# cursor.execute("CREATE DATABASE jogoteca;")
-
-cursor.execute("USE jogoteca;")
 
 TABLES = {}
 TABLES['jogos'] = ('''
@@ -49,8 +45,9 @@ TABLES['usuarios'] = ('''
 for tabela_nome in TABLES:
     tabela_sql = TABLES[tabela_nome]
     try:
-        print(f'Criando tabela {tabela_nome}' , end = '')
+        print(f'Criando tabela {tabela_nome}...: ' , end = '')
         cursor.execute(tabela_sql)
+        print('OK')
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
             print('Já existe')
@@ -84,6 +81,7 @@ jogos = [
 ]
 
 cursor.executemany(jogos_sql , jogos)
+
 cursor.execute('select * from Jogos')
 print('------------ Jogos: ---------------')
 for jogo in cursor.fetchall():
