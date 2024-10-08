@@ -15,6 +15,7 @@ app.config('SQLALCHEMY_DATABASE_URI') = \
     )
     
 db = SQLAlchemy(app)
+
 class Jogos(db.nmodel):
     id = db.Column(db.Integer, primary_key = True, auto_increment=True)
     nome = db.Column(db.String(50), nullable=False)
@@ -34,31 +35,7 @@ class Jogos(db.nmodel):
     
     
     
-class Jogo:
-    def __init__(self,nome,categoria,console) -> None:
-        self.nome = nome
-        self.categoria = categoria
-        self.console = console
-       
-jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
-jogo2 = Jogo('Lol', 'MMO','PC') 
-jogo3 = Jogo('Valorant','Tiro','PC')
-jogo4 = Jogo('Doom','RPG',  'PC')
-lista = [jogo1,jogo2,jogo3,jogo4]
 
-class Usuario:
-    def __init__(self, nome, nickname, senha):
-        self.nome = nome
-        self.nickname = nickname
-        self.senha = senha
-        
-usuario1 = Usuario("Ramon Candido" , "Ramones" , "7532draivp")
-usuario2 = Usuario("Murilo huff" , "Murinelas" , "1234567")
-usuario3 = Usuario("Leticia neves" , "Leticines" ,"abcdef")
-
-usuarios = { usuario1.nickname : usuario1,
-            usuario2.nickname : usuario2, 
-            usuario3.nickname : usuario3 }
 
 @app.route('/')
 def index():
