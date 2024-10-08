@@ -6,7 +6,7 @@ print("Testando conexão...")
 
 try:
     conexao = mysql.connector.connect(
-        host = '127.0.0.1',
+        host = 'localhost',
         user = 'root',
         password = '7532draivp',
         database = 'Jogoteca'
@@ -32,6 +32,15 @@ cursor.execute("Use Jogoteca")
 
 
 TABLES = {}
+TABLES['usuarios'] = ('''
+      CREATE TABLE  usuarios (
+          nome varchar(20) not null,
+          nickname varchar(20) not null,
+          senha varchar(100) not null,
+          PRIMARY KEY (nickname)
+          )''')
+
+
 TABLES['jogos'] = ('''
      CREATE TABLE jogos (
          id int(11) not null auto_increment,
@@ -41,13 +50,6 @@ TABLES['jogos'] = ('''
          PRIMARY KEY (id)
      )''')
 
-TABLES['usuarios'] = ('''
-      CREATE TABLE  usuarios (
-          nome varchar(20) not null,
-          nickname varchar(20) not null,
-          senha varchar(100) not null,
-          PRIMARY KEY (nickname)
-          )''')
 
 for tabela_nome in TABLES:
     tabela_sql = TABLES[tabela_nome]
@@ -70,7 +72,11 @@ usuarios = [
     ("Murilo huff" , "Murinelas" , "1234567"),
     ("Leticia neves" , "Leticines" ,"abcdef")
 ]        
+#usando executemany para executar varios parametros de uma vez só
 cursor.executemany(usuarios_sql,usuarios)
+#confirmando inserção dos dados no banco de dados
+conexao.commit()
+print("usuarios inseridos com sucesso")
 
 
 cursor.execute('select * from usuarios')
@@ -88,7 +94,10 @@ jogos = [
     ('GTA V' , 'Tiro' , 'PC')
 ]
 
+#usando executemany para executar varios parametros de uma vez só
 cursor.executemany(jogos_sql , jogos)
+#confirmando inserção dos dados no banco de dados
+conexao.commit()
 
 cursor.execute('select * from jogos')
 print('------------ Jogos: ---------------')

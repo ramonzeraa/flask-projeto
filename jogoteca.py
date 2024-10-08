@@ -93,16 +93,17 @@ def login():
 #         flash('Usuário não logado')
 #         return redirect('/login')
 
+
 @app.route('/autenticar' , methods = ['POST',])
 def autenticar():
     nickname = request.form.get('usuário')  # Pegando o nickname do formulário
-    senha = request.form.get('Senha') 
+    senha = request.form.get('Senha') #pegando a senha do formulario
     usuario = Usuarios.query.filter_by(nickname=nickname).first()
-    
+    #verificar se usuario e senha estão corretos
     if usuario and usuario.senha == senha:
             session['usuario_logado'] = usuario.nickname
             flash(f"{usuario.nickname} logado com sucesso")
-            
+            #redirecionamento para proxima pagina
             proxima_pagina =  request.form.get('proxima')
             return redirect(proxima_pagina or '/')
     else:
