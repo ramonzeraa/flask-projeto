@@ -21,8 +21,13 @@ except mysql.connector.Error as err:
     else:
         print(err)
         
-cursor = conexao.cursor()
-
+def carregar_jogos_do_banco(usuario_id):
+    cursor = conexao.cursor(dictionary=True)
+    cursor.execute("SELECT nome, categoria, console FROM jogos WHERE usuario_id = %s", (usuario_id,))
+    jogos = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return jogos
 
 TABLES = {}
 TABLES['jogos'] = ('''
