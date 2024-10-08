@@ -15,7 +15,25 @@ app.config('SQLALCHEMY_DATABASE_URI') = \
     )
     
 db = SQLAlchemy(app)
-
+class Jogos(db.nmodel):
+    id = db.Column(db.Integer, primary_key = True, auto_increment=True)
+    nome = db.Column(db.String(50), nullable=False)
+    categoria = db.Column(db.String(35), nullable=False)
+    console = db.Column(db.String(20), nullable=False)
+    
+    def __repr__(self):
+        return '<Name %r' % self.name
+    
+class Jogos(db.nmodel):
+    nickname = db.Column(db.String(8), primary_key = True, auto_increment=True)
+    nome = db.Column(db.String(20), nullable=False)
+    senha = db.Column(db.String(100), nullable=False)
+    
+    def __repr__(self):
+        return '<Name %r' % self.name
+    
+    
+    
 class Jogo:
     def __init__(self,nome,categoria,console) -> None:
         self.nome = nome
